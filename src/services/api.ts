@@ -13,7 +13,7 @@ interface Step2Response {
   annualSavings: number;
 }
 
-export async function fetchStep1Analysis(file1: File, file2: File): Promise<Step1Response> {
+export async function fetchStep1Analysis(_file1: File, _file2: File): Promise<Step1Response> {
   // Simulate API call with 1 second delay
   await new Promise(resolve => setTimeout(resolve, 1000));
 

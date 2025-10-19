@@ -1,6 +1,6 @@
 'use client';
 
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 interface SavingsBreakdownChartProps {
   totalSavings: number;
@@ -19,7 +19,7 @@ export function SavingsBreakdownChart({ totalSavings }: SavingsBreakdownChartPro
   // Blue shades palette - from light to dark
   const COLORS = ['#A8C5E3', '#7BA3CC', '#5B8DBE', '#4A73A3', '#3D5A80'];
 
-  const CustomTooltip = ({ active, payload }: any) => {
+  const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ name: string; value: number; payload: { amount: number } }> }) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-white p-3 rounded-lg border border-gray-200 shadow-lg">

@@ -15,11 +15,9 @@ import {
   Brain,
 } from 'lucide-react';
 import { useAnalysis } from '@/contexts/AnalysisContext';
-import { useState } from 'react';
 
 export function ReportView() {
   const { state } = useAnalysis();
-  const [activeTab, setActiveTab] = useState<'overview' | 'details' | 'recommendations'>('overview');
 
   // Update steps - all completed and clickable
   const steps = defaultSteps.map((step, index) => ({

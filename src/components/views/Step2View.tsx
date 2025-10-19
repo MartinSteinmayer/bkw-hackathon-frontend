@@ -5,7 +5,7 @@ import { MetricCard } from '@/components/MetricCard';
 import { FadeIn } from '@/components/FadeIn';
 import { Zap, Flame, TrendingDown } from 'lucide-react';
 import { useAnalysis } from '@/contexts/AnalysisContext';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 export function Step2View() {
   const { state, setCurrentStep, markReportComplete, markStep2Visited } = useAnalysis();

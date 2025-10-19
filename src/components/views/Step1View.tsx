@@ -5,7 +5,7 @@ import { MetricCard } from '@/components/MetricCard';
 import { FadeIn } from '@/components/FadeIn';
 import { Building, CheckCircle2, TrendingUp } from 'lucide-react';
 import { useAnalysis } from '@/contexts/AnalysisContext';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 export function Step1View() {
   const { state, setCurrentStep, markStep1Visited } = useAnalysis();
@@ -131,7 +131,7 @@ export function Step1View() {
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success-green mt-0.5 flex-shrink-0" />
                 <span className="text-xs text-text-secondary">
-                  5 Räume von "Büro Standard" auf "Büro Optimiert" umkategorisiert
+                  5 Räume von &quot;Büro Standard&quot; auf &quot;Büro Optimiert&quot; umkategorisiert
                 </span>
               </li>
               <li className="flex items-start gap-2">
