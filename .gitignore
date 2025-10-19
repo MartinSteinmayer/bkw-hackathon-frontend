@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+BACKEND_CONNECTION.md
+BASE64_EXCEL_GUIDE.md
+DOWNLOAD_BUTTON_DISTRIBUTION.md
+IMPLEMENTATION_SUMMARY.md
+INTEGRATION_COMPLETE.md
+test-backend.sh

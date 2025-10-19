@@ -4,6 +4,7 @@ import { ProgressStepper, defaultSteps } from '@/components/ProgressStepper';
 import { ComparisonCards } from '@/components/ComparisonCards';
 import { CombinedCostSavingsChart } from '@/components/CombinedCostSavingsChart';
 import { SavingsBreakdownChart } from '@/components/SavingsBreakdownChart';
+import { DownloadExcelButton } from '@/components/DownloadExcelButton';
 import { FadeIn } from '@/components/FadeIn';
 import {
   Download,
@@ -76,13 +77,16 @@ export function ReportView() {
               {new Date().toLocaleDateString('de-DE')}
             </p>
           </div>
-          <button
-            onClick={handleExport}
-            className="bg-primary-blue hover:bg-primary-blue-dark text-white px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-1.5 transition-colors"
-          >
-            <Download className="w-4 h-4" />
-            Exportieren
-          </button>
+          <div className="flex items-center gap-3">
+            <DownloadExcelButton />
+            <button
+              onClick={handleExport}
+              className="bg-primary-blue hover:bg-primary-blue-dark text-white px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-1.5 transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              PDF Exportieren
+            </button>
+          </div>
         </div>
         </FadeIn>
 

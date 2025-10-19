@@ -11,6 +11,8 @@ headerRow?: number (if autoDetectStructure=false)
 Returns: 200 application/json
 TypeScript shape used by the frontend (extends current Step1Response to future-proof):
 analysisId: string (unique id for subsequent calls)
+processedExcelBase64?: string (base64 encoded processed/merged Excel file)
+processedExcelFilename?: string (suggested filename, e.g., "merged_analysis.xlsx")
 step1:
 optimizedRooms: number
 totalRooms: number
@@ -34,6 +36,8 @@ Important: Accept MIME types for .xlsm (application/vnd.ms-excel.sheet.macroEnab
 Example response:
 {
 "analysisId": "f1d2d2f9-7c3e-4a1a-9a67-5f2d9b1b2a30",
+"processedExcelBase64": "UEsDBBQABgAIAAAAIQBi7p1o...(truncated base64 string)",
+"processedExcelFilename": "merged_analysis.xlsx",
 "step1": {
 "optimizedRooms": 47,
 "totalRooms": 52,
@@ -50,6 +54,24 @@ Example response:
 ]
 }
 }
+
+Backend Implementation Note:
+To generate the base64 Excel in Python:
+```python
+import base64
+
+# After processing/merging Excel files
+with open('processed_file.xlsx', 'rb') as f:
+    excel_bytes = f.read()
+    base64_encoded = base64.b64encode(excel_bytes).decode('utf-8')
+
+response_data = {
+    "analysisId": analysis_id,
+    "processedExcelBase64": base64_encoded,
+    "processedExcelFilename": "merged_analysis.xlsx",
+    "step1": { ... }
+}
+```
 
 2) POST /api/analyze/step2
 Purpose: Run the step 2 energy/consumption/cost analysis based on prior step’s results.

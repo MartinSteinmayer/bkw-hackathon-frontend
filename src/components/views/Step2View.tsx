@@ -3,6 +3,7 @@
 import { ProgressStepper, defaultSteps } from '@/components/ProgressStepper';
 import { MetricCard } from '@/components/MetricCard';
 import { FadeIn } from '@/components/FadeIn';
+import { DownloadExcelButton } from '@/components/DownloadExcelButton';
 import { Zap, Flame, TrendingDown } from 'lucide-react';
 import { useAnalysis } from '@/contexts/AnalysisContext';
 import { useEffect } from 'react';
@@ -55,9 +56,10 @@ export function Step2View() {
               <h1 className="text-2xl font-bold text-text-primary mb-1.5">
                 Energieverbrauch-Prognose Abgeschlossen
               </h1>
-              <p className="text-sm text-text-secondary">
+              <p className="text-sm text-text-secondary mb-3">
                 Ihre Energieverbrauchswerte wurden erfolgreich berechnet und optimiert
               </p>
+              <DownloadExcelButton />
             </div>
           </FadeIn>
 

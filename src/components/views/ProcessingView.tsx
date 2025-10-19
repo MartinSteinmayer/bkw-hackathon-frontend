@@ -8,7 +8,7 @@ import { fetchStep1Analysis } from '@/services/api';
 import { useEffect } from 'react';
 
 export function ProcessingView() {
-  const { state, setCurrentStep, markStep1Complete, setProcessing, setStep1Data } = useAnalysis();
+  const { state, setCurrentStep, markStep1Complete, setProcessing, setStep1Data, setAnalysisId, setProcessedExcel } = useAnalysis();
 
   useEffect(() => {
     let isMounted = true;
@@ -19,11 +19,19 @@ export function ProcessingView() {
 
       try {
         // Call API with both uploaded files
-        const data = await fetchStep1Analysis(state.uploadedFiles.file1!, state.uploadedFiles.file2!);
+        const response = await fetchStep1Analysis(state.uploadedFiles.file1!, state.uploadedFiles.file2!);
 
         if (isMounted) {
-          // Store the data globally
-          setStep1Data(data);
+          // Store the analysisId for step 2
+          setAnalysisId(response.analysisId);
+
+          // Store the processed Excel file (base64) if provided
+          if (response.processedExcelBase64 && response.processedExcelFilename) {
+            setProcessedExcel(response.processedExcelBase64, response.processedExcelFilename);
+          }
+
+          // Store the step1 data
+          setStep1Data(response.step1);
 
           // Mark step 1 as complete
           markStep1Complete();
@@ -33,6 +41,7 @@ export function ProcessingView() {
         }
       } catch (error) {
         console.error('Step 1 API error:', error);
+        // TODO: Show error UI to user
       } finally {
         if (isMounted) {
           setProcessing(false);

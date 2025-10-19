@@ -18,12 +18,17 @@ export function Step2ProcessingView() {
       setProcessing(true);
 
       try {
-        // Call API
-        const data = await fetchStep2Analysis();
+        // Ensure we have an analysisId from step 1
+        if (!state.analysisId) {
+          throw new Error('No analysis ID available. Please complete step 1 first.');
+        }
+
+        // Call API with analysisId
+        const response = await fetchStep2Analysis(state.analysisId);
 
         if (isMounted) {
-          // Store the data globally
-          setStep2Data(data);
+          // Store the step2 data
+          setStep2Data(response.step2);
 
           // Mark step 2 as complete
           markStep2Complete();
@@ -33,6 +38,7 @@ export function Step2ProcessingView() {
         }
       } catch (error) {
         console.error('Step 2 API error:', error);
+        // TODO: Show error UI to user
       } finally {
         if (isMounted) {
           setProcessing(false);

@@ -9,12 +9,25 @@ export interface Step1Data {
   totalRooms: number;
   improvementRate: number;
   confidence: number;
+  details?: {
+    originalRoomTypesCount?: number;
+    optimizedRoomTypesCount?: number;
+    avgRoomSizeM2?: number;
+    totalAreaM2?: number;
+    keyChanges?: { from: string; to: string; count: number }[];
+  };
 }
 
 export interface Step2Data {
   energyConsumption: number;
   reductionPercentage: number;
   annualSavings: number;
+  details?: {
+    heatingPowerKw?: number;
+    annualConsumptionKwh?: number;
+    savingsKwh?: number;
+    breakdownByRoomType?: { roomType: string; wPerM2: number; sharePercent?: number }[];
+  };
 }
 
 interface AnalysisState {
@@ -23,6 +36,9 @@ interface AnalysisState {
     file1: File | null;
     file2: File | null;
   };
+  analysisId: string | null;
+  processedExcelBase64: string | null;
+  processedExcelFilename: string | null;
   step1Completed: boolean;
   step2Completed: boolean;
   reportCompleted: boolean;
@@ -37,6 +53,8 @@ interface AnalysisContextType {
   state: AnalysisState;
   setCurrentStep: (step: AnalysisStep) => void;
   setUploadedFiles: (file1: File, file2: File) => void;
+  setAnalysisId: (analysisId: string) => void;
+  setProcessedExcel: (base64: string, filename: string) => void;
   markStep1Complete: () => void;
   markStep2Complete: () => void;
   markReportComplete: () => void;
@@ -56,6 +74,9 @@ const initialState: AnalysisState = {
     file1: null,
     file2: null,
   },
+  analysisId: null,
+  processedExcelBase64: null,
+  processedExcelFilename: null,
   step1Completed: false,
   step2Completed: false,
   reportCompleted: false,
@@ -75,6 +96,14 @@ export function AnalysisProvider({ children }: { children: ReactNode }) {
 
   const setUploadedFiles = (file1: File, file2: File) => {
     setState(prev => ({ ...prev, uploadedFiles: { file1, file2 } }));
+  };
+
+  const setAnalysisId = (analysisId: string) => {
+    setState(prev => ({ ...prev, analysisId }));
+  };
+
+  const setProcessedExcel = (base64: string, filename: string) => {
+    setState(prev => ({ ...prev, processedExcelBase64: base64, processedExcelFilename: filename }));
   };
 
   const markStep1Complete = () => {
@@ -119,6 +148,8 @@ export function AnalysisProvider({ children }: { children: ReactNode }) {
         state,
         setCurrentStep,
         setUploadedFiles,
+        setAnalysisId,
+        setProcessedExcel,
         markStep1Complete,
         markStep2Complete,
         markReportComplete,
